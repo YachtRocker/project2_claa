@@ -91,25 +91,25 @@ void FIFO(int n)
 
 void LRU(int n)
 {
-   // write your own code for the LRU policy
-   // based on the input file content, print out a table similar to the Figure 22.5
-   int i;
-   int lruarr[3];
-   int index;
-   printf("LRU   page reference sequence: ");
-   for (i = 0; i < n; i++) {
-      printf("%d ", page_reference_sequence[i]);
-   }
-   printf("(total %d references)\n", n);
+    // write your own code for the LRU policy
+    // based on the input file content, print out a table similar to the Figure 22.5
+    int i;
+    int lruarr[3];
+    int index;
+    printf("LRU   page reference sequence: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", page_reference_sequence[i]);
+    }
+    printf("(total %d references)\n", n);
 
-   for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
     {
         if (i < 3) {
             lruarr[i] = page_reference_sequence[i];
         }
         else if (check_if_in_array(lruarr, page_reference_sequence[i]) == 1)
         {
-            index = find_in_array(lruarr, page_reference_sequence[i])
+            index = find_in_array(lruarr, page_reference_sequence[i]);
             if (index == 0) {
                 lruarr[0] = lruarr[1];
                 lruarr[1] = lruarr[2];
@@ -122,13 +122,15 @@ void LRU(int n)
         } 
         else if (check_if_in_array(lruarr, page_reference_sequence[i]) == 0)
         {
-            /* code */
+            lruarr[0] = lruarr[1];
+            lruarr[1] = lruarr[2];
+            lruarr[2] = page_reference_sequence[i];
         }
           
-        print_array(fifoarr);           
+        print_array(lruarr);           
     }
 
-    print_array(fifoarr);   
+    print_array(lruarr);   
 }
 
 int main(int argc, char *argv[])

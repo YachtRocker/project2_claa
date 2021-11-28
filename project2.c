@@ -27,6 +27,7 @@ int read_file(char *filename)  // read in the page reference sequence from the f
    return n;  // return the total number of page reference
 }
 
+// Checks to see if num is in the array
 int check_if_in_array(int arr[], int num) {
     for (int i = 0; i < 3; i++)
     {
@@ -37,6 +38,7 @@ int check_if_in_array(int arr[], int num) {
     return 0;    
 }
 
+// Prints array to screen
 void print_array(int arr[]){
     for (int i = 0; i < 3; i++)
     {
@@ -45,6 +47,13 @@ void print_array(int arr[]){
     printf("\n");    
 }
 
+void print_title () {
+    printf("                                    Resulting\n");
+    printf("   Access  Hit/Miss?   Evict       Cache State   \n");
+    printf("-------------------------------------------------------\n");
+}
+
+// Find and returns the index of num in array
 int find_in_array(int arr[], int num) {
     for (int i = 0; i < 3; i++)
     {
@@ -62,19 +71,33 @@ void FIFO(int n)
    // write your own code for the FIFO policy
    // based on the input file content, print out a table similar to the Figure 22.2
     int i;
-    int fifoarr[3];
+    int fifoarr[] = {0,0,0};
     int index;
+    print_title();
 
-    printf("FIFO  page reference sequence: ");
+    /* printf("FIFO  page reference sequence: ");
     for (i = 0; i < n; i++) {
         printf("%d ", page_reference_sequence[i]);
     }
-    printf("(total %d references)\n", n);
+    printf("(total %d references)\n", n); */
 
     for (i = 0; i < n; i++)
     {
         if (i < 3) {
             fifoarr[i] = page_reference_sequence[i];
+            if (i == 0)
+            {
+                printf("     %d       Miss                First-in-->          %d\n", page_reference_sequence[i], fifoarr[0]);
+            }
+            if (i == 1)
+            {
+                printf("     %d       Miss                First-in-->       %d, %d\n", page_reference_sequence[i], fifoarr[0], fifoarr[1]);
+            }
+            if (i == 2)
+            {
+                printf("     %d       Miss                First-in-->    %d, %d, %d\n", page_reference_sequence[i], fifoarr[0], fifoarr[1], fifoarr[2]);
+            } 
+            
         }
         else if (check_if_in_array(fifoarr, page_reference_sequence[i]) == 0)
         {
@@ -82,10 +105,10 @@ void FIFO(int n)
             fifoarr[1] = fifoarr[2];
             fifoarr[2] = page_reference_sequence[i];
         }   
-        print_array(fifoarr);           
+        //print_array(fifoarr);           
     }
 
-    print_array(fifoarr);   
+    //print_array(fifoarr);   
 
 }
 

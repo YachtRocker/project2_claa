@@ -1,3 +1,7 @@
+/* Author: (Douglas Kohn, 677647118, dkohn3@uis.edu) 
+    Compile: gcc -o project2.edu
+    Brief Description: This programs replicated what a First in First Out and LRU or Least Recently Used policies. 
+*/ 
 
 #include <stdio.h>
 #include <stdlib.h>

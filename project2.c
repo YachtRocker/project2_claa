@@ -48,8 +48,8 @@ void print_array(int arr[]){
 }
 
 void print_title () {
-    printf("                                    Resulting\n");
-    printf("   Access  Hit/Miss?   Evict       Cache State   \n");
+    printf("                                       Resulting\n");
+    printf("   Access  Hit/Miss?   Evict          Cache State   \n");
     printf("-------------------------------------------------------\n");
 }
 
@@ -73,6 +73,7 @@ void FIFO(int n)
     int i;
     int fifoarr[] = {0,0,0};
     int index;
+    int evict;
     print_title();
 
     /* printf("FIFO  page reference sequence: ");
@@ -101,14 +102,19 @@ void FIFO(int n)
         }
         else if (check_if_in_array(fifoarr, page_reference_sequence[i]) == 0)
         {
+            evict = fifoarr[0];
             fifoarr[0] = fifoarr[1];
             fifoarr[1] = fifoarr[2];
             fifoarr[2] = page_reference_sequence[i];
-        }   
-        //print_array(fifoarr);           
-    }
 
-    //print_array(fifoarr);   
+            printf("     %d       Miss        %d       First-in-->    %d, %d, %d\n", page_reference_sequence[i], evict, fifoarr[0], fifoarr[1], fifoarr[2]);
+        }   
+        else
+        {
+            printf("     %d       Hit                 First-in-->    %d, %d, %d\n", page_reference_sequence[i], fifoarr[0], fifoarr[1], fifoarr[2]);
+        }
+                   
+    }
 
 }
 
@@ -119,16 +125,36 @@ void LRU(int n)
     int i;
     int lruarr[3];
     int index;
-    printf("LRU   page reference sequence: ");
+    int evict;
+
+    printf("\n\n");
+    print_title();
+    
+
+    /* printf("LRU   page reference sequence: ");
     for (i = 0; i < n; i++) {
         printf("%d ", page_reference_sequence[i]);
     }
-    printf("(total %d references)\n", n);
+    printf("(total %d references)\n", n); */
 
     for (i = 0; i < n; i++)
     {
         if (i < 3) {
             lruarr[i] = page_reference_sequence[i];
+
+            if (i == 0)
+            {
+                printf("     %d       Miss                  LRU-->          %d\n", page_reference_sequence[i], lruarr[0]);
+            }
+            if (i == 1)
+            {
+                printf("     %d       Miss                  LRU-->       %d, %d\n", page_reference_sequence[i], lruarr[0], lruarr[1]);
+            }
+            if (i == 2)
+            {
+                printf("     %d       Miss                  LRU-->    %d, %d, %d\n", page_reference_sequence[i], lruarr[0], lruarr[1], lruarr[2]);
+            } 
+            
         }
         else if (check_if_in_array(lruarr, page_reference_sequence[i]) == 1)
         {
@@ -142,18 +168,23 @@ void LRU(int n)
                 lruarr[1] = lruarr[2];
                 lruarr[2] = page_reference_sequence[i];
             }
+
+            printf("     %d       Hit                   LRU-->    %d, %d, %d\n", page_reference_sequence[i], lruarr[0], lruarr[1], lruarr[2]);
         } 
         else if (check_if_in_array(lruarr, page_reference_sequence[i]) == 0)
         {
+            evict = lruarr[0];
             lruarr[0] = lruarr[1];
             lruarr[1] = lruarr[2];
             lruarr[2] = page_reference_sequence[i];
+
+            printf("     %d       Miss        %d         LRU-->    %d, %d, %d\n", page_reference_sequence[i], evict, lruarr[0], lruarr[1], lruarr[2]);
         }
           
-        print_array(lruarr);           
+       //print_array(lruarr);           
     }
 
-    print_array(lruarr);   
+    //print_array(lruarr);   
 }
 
 int main(int argc, char *argv[])

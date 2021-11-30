@@ -199,3 +199,6 @@ int main(int argc, char *argv[])
    FIFO(n);
    LRU(n);
 }
+
+
+// Code Completed for the assignment.

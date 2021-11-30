@@ -183,12 +183,9 @@ void LRU(int n)
             lruarr[2] = page_reference_sequence[i];
 
             printf("     %d       Miss        %d         LRU-->    %d, %d, %d\n", page_reference_sequence[i], evict, lruarr[0], lruarr[1], lruarr[2]);
-        }
-          
-       //print_array(lruarr);           
+        } 
     }
-
-    //print_array(lruarr);   
+   
 }
 
 int main(int argc, char *argv[])
